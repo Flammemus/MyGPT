@@ -12,9 +12,9 @@ prevMsg = []
 
 print("@*----------------------------------------------------------------------------------------------*@")
 tprint("MyGPT")
-print("\nWelcome to MyGPT! Here you can:\n")
 
 def menu():
+    print("Welcome to MyGPT! Here you can:\n")
     print("- Chat")
     print("- View\n")
 
@@ -29,8 +29,14 @@ def menu():
     
 def viewing():
     print("Displaying chat logs...\n")
-    for i in prevMsg:
-        print(i, "\n")
+    if not prevMsg:
+        print("Your chat logs are empty. Returning to the menu.\n")
+        menu()
+
+    else:
+        for i in prevMsg:
+            print(i, "\n")
+
 
 def chatting():
     print("Chat started, type 'Back' to return to the menu\n")
@@ -41,6 +47,7 @@ def chatting():
         action = input(": ")
 
         if action.lower() == "back":
+
             print("\n------------------------\n")
             print("Welcome back!\n")
             menu()
@@ -51,8 +58,7 @@ def chatting():
             prevMsg.append("You: " + action)
 
             messages = [
-                {"role": "system", "content": "You are a helpful assistant."},
-                {"role": "user", "content": f"These are the previous messages: {prevMsg}. Answer future questions with the previous messages in mind."},
+                {"role": "system", "content": f"You are a helpful friend. These are the previous messages from your conversation: {prevMsg}"},
                 {"role": "user", "content": f"{action}"}
             ]
 
@@ -62,9 +68,16 @@ def chatting():
                 messages=messages
             )
 
-            prevMsg.append("- " + gptOutput["choices"][0]["message"]["content"])
+            gptResponse = gptOutput["choices"][0]["message"]["content"]
+
+            prevMsg.append("GPT: " + gptResponse)
 
             print("")
-            print("-", gptOutput["choices"][0]["message"]["content"]), print()
+            print("- " + gptResponse), print()
+
+            with open("chatLogs.json", "a") as f:
+
+                json.dump(prevMsg, f, indent=4)
+                f.write('\n')
 
 menu()
