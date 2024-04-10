@@ -3,12 +3,9 @@ With my program you can freely change the personality of ChatGPT.
 
 Under, I have written a guide on how to run the program through an IDE and through your terminal.
 
-To use the program yourself, you would need to create a file named "myApiKey.json" in /MyGPT/.
+To run the program through an IDE, you would need to create a file named "myApiKey.json" inside the /MyGPT/ folder.
 Go to https://platform.openai.com/api-keys and create a new personal API key.
 Open your myApiKey.json file and type "{myApiKey: "insertYourApiKeyHere"}". (example: {myApiKey: "sk-gfhdfsd7fG6h56dfDgspdfs786"}
-
-All that is left is to run the main.py program.
-This can be done with an IDE or run through your terminal.
 
 To run the program through your terminal, be sure to have python3 installed.
 Maneuver yourself to the MyGPT directory and type "touch myApiKey.json" to create the necessary file.
